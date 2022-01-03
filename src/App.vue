@@ -2,7 +2,7 @@
   <div id="app">
     <Sidebar/>
    <Header msg="Welcome to Your Vue.js App"/>
-    
+    <router-view></router-view>
   </div>
 </template>
 
@@ -28,6 +28,7 @@ export default {
   color: #556d7c;
   margin: 0px;
   padding: 0px;
-  background-color: #212b31;
+  /* background-color: #212b31; */
 }
+
 </style>

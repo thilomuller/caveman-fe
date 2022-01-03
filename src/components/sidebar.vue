@@ -4,13 +4,13 @@
         <b-button v-b-toggle.menu-sidebar class='menu-button' ><b-icon-chevron-bar-left></b-icon-chevron-bar-left></b-button>
       <h1>Menu</h1>
         <b-nav vertical tabs>
-            <b-nav-item >Dashboard</b-nav-item> 
-            <b-nav-item >Profile</b-nav-item> 
-            <b-nav-item >Caves</b-nav-item>             
-            <b-nav-item-dropdown text="Admin" block menu-class="w-100">
+            <router-link tag='b-nav-item' to="/dashboard">Dashboard</router-link>
+            <router-link tag='b-nav-item' to="/profile">My Profile</router-link>    
+            <router-link tag='b-nav-item' to="/caves">Caves</router-link>
+            <!-- <b-nav-item-dropdown text="Admin" block menu-class="w-100">
                 <b-dropdown-item>Manage Users</b-dropdown-item>
                 <b-dropdown-item>Manage Caveman</b-dropdown-item>
-            </b-nav-item-dropdown>
+            </b-nav-item-dropdown> -->
         </b-nav>
     </b-sidebar>
   </div>
