@@ -10,14 +10,12 @@
                             
                                 <b-form-input
                                 id="search-string"
-                                v-model="name"
-                                :state="nameState"
                                 aria-describedby="input-live-help input-live-feedback"
                                 placeholder="Enter your Search String"
                                 trim
                                 size="sm" 
                                 ></b-form-input>
-                                <b-button variant="">Go</b-button>
+                                <b-button >Go</b-button>
                         </b-card-text>
                     </b-card>
                 </b-col>
@@ -60,9 +58,6 @@
                 <b-col>
                     <b-table striped hover dark bordered :items="items"></b-table>
                     <b-pagination
-                        v-model="currentPage"
-                        :total-rows="rows"
-                        :per-page="perPage"
                         aria-controls="my-table"
                         align='right'
                         >
@@ -75,6 +70,7 @@
 </template>
 
 <script>
+    import { mapActions } from "vuex";
     export default {    
        name: 'Caves',
        data() {
@@ -85,6 +81,17 @@
                     { Cave_Name: 'Broken Heart Cave', Area: 'Gauteng', last_visit: '02 January 1987' },
                 ]
             }
+       }, 
+       methods: {
+           ...mapActions(["getCave"]),
+           async fetchCave() {
+               try {
+                   let res = await this.getCave(1)
+                   console.log(res)
+               } catch (e) {
+                    console.error(e)
+               }
+           }
        }
     }
 </script>

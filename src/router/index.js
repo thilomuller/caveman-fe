@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from '../views/dashboard.vue'
 import Caves from '../views/caves.vue'
+import Login from '../views/login.vue'
+import store from "../store";
 
 Vue.use(VueRouter)
 
@@ -13,12 +15,20 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    meta: { requiresAuth: true },
   },
   {
     path: '/caves',
     name: 'caves',
-    component: Caves
+    component: Caves,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: { guest: true },
   },
   {
     path: '/about',
@@ -35,5 +45,29 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (store.getters.isAuthenticated) {
+      next();
+      return;
+    }
+    next("/login");
+  } else {
+    next();
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.guest)) {
+    if (store.getters.isAuthenticated) {
+      next("/login");
+      return;
+    }
+    next();
+  } else {
+    next();
+  }
+});
 
 export default router

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Sidebar/>
-   <Header msg="Welcome to Your Vue.js App"/>
+    <p v-if="isLoggedIn"><Sidebar /></p>
+   <Header />
     <router-view></router-view>
   </div>
 </template>
@@ -15,7 +15,10 @@ export default {
   components: {
     Header,
     Sidebar
-  }
+  },
+  computed : {
+      isLoggedIn : function(){ return this.$store.getters.isAuthenticated}
+    },
 }
 </script>
 
