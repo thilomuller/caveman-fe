@@ -1,13 +1,42 @@
 <template>
     <div class="header">
-        <span class='menu_button'><b-button v-b-toggle.menu-sidebar size="sm"><b-icon-list></b-icon-list></b-button></span> <span class='header_name'> Caveman </span> 
+        <span v-if="isLoggedIn" class='menu_button'><b-button v-b-toggle.menu-sidebar size="sm">
+            <b-icon-list></b-icon-list></b-button>
+        </span> 
+        <span class='header_name'> Caveman </span> 
     </div>
 </template>
 
 <script>
+    import { mapActions } from "vuex";
     export default {
         name: 'Header',
-        }
+        computed : {
+            isLoggedIn : function(){ return this.$store.getters.isAuthenticated}
+        },
+        methods: {
+            ...mapActions(["LogOut"]),
+            async login() {
+                this.$router.push({ name: 'login'})
+            },
+            async logout() {
+                try{
+                    await this.LogOut();
+                } catch (e) {
+                    console.log(e)
+                }
+                this.$router.push({ name: 'login'});
+            },
+            async home() {
+                try{
+                    this.$router.push("/caves");
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+
+        },
+    }
 </script>
 
 <style scoped>
